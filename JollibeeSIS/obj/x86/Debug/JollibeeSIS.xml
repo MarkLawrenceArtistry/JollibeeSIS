@@ -1,0 +1,124 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+JollibeeSIS
+</name>
+</assembly>
+<members>
+<member name="T:JollibeeSIS.dsReports.tblSalesMasterDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:JollibeeSIS.dsReports.tblSalesDetailDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:JollibeeSIS.dsReports.tblProductsDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:JollibeeSIS.dsReports.tblUsersDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:JollibeeSIS.dsReports.tblSalesMasterRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:JollibeeSIS.dsReports.tblSalesDetailRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:JollibeeSIS.dsReports.tblProductsRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:JollibeeSIS.dsReports.tblUsersRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:JollibeeSIS.dsReports.tblSalesMasterRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:JollibeeSIS.dsReports.tblSalesDetailRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:JollibeeSIS.dsReports.tblProductsRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:JollibeeSIS.dsReports.tblUsersRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:JollibeeSIS.dsReports">
+	<summary>
+Represents a strongly typed in-memory cache of data.
+</summary>
+</member><member name="T:JollibeeSIS.dsReportsTableAdapters.tblSalesMasterTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:JollibeeSIS.dsReportsTableAdapters.tblSalesDetailTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:JollibeeSIS.dsReportsTableAdapters.tblProductsTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:JollibeeSIS.dsReportsTableAdapters.tblUsersTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="M:JollibeeSIS.dsReportsTableAdapters.TableAdapterManager.UpdateUpdatedRows(JollibeeSIS.dsReports,System.Collections.Generic.List{System.Data.DataRow},System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Update rows in top-down order.
+</summary>
+</member><member name="M:JollibeeSIS.dsReportsTableAdapters.TableAdapterManager.UpdateInsertedRows(JollibeeSIS.dsReports,System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Insert rows in top-down order.
+</summary>
+</member><member name="M:JollibeeSIS.dsReportsTableAdapters.TableAdapterManager.UpdateDeletedRows(JollibeeSIS.dsReports,System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Delete rows in bottom-up order.
+</summary>
+</member><member name="M:JollibeeSIS.dsReportsTableAdapters.TableAdapterManager.GetRealUpdatedRows(System.Data.DataRow[],System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Remove inserted rows that become updated rows after calling TableAdapter.Update(inserted rows) first
+</summary>
+</member><member name="M:JollibeeSIS.dsReportsTableAdapters.TableAdapterManager.UpdateAll(JollibeeSIS.dsReports)">
+	<summary>
+Update all changes to the dataset.
+</summary>
+</member><member name="T:JollibeeSIS.dsReportsTableAdapters.TableAdapterManager.UpdateOrderOption">
+	<summary>
+Update Order Option
+</summary>
+</member><member name="T:JollibeeSIS.dsReportsTableAdapters.TableAdapterManager.SelfReferenceComparer">
+	<summary>
+Used to sort self-referenced table's rows
+</summary>
+</member><member name="T:JollibeeSIS.dsReportsTableAdapters.TableAdapterManager">
+	<summary>
+TableAdapterManager is used to coordinate TableAdapters in the dataset to enable Hierarchical Update scenarios
+</summary>
+</member><member name="P:JollibeeSIS.My.Resources.Resources.ResourceManager">
+	<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member><member name="P:JollibeeSIS.My.Resources.Resources.Culture">
+	<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member><member name="T:JollibeeSIS.My.Resources.Resources">
+	<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+</members>
+</doc>
