@@ -135,7 +135,7 @@ Public Class ucDashboard
         dgv.GridColor = Color.FromArgb(231, 229, 255)
     End Sub
 
-
+    'daugdaug
     Private Sub Label1_Click(sender As System.Object, e As System.EventArgs) Handles Label1.Click, Label3.Click
 
     End Sub
