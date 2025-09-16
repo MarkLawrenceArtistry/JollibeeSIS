@@ -18,33 +18,22 @@ Public Class ucReports
         dtpEndDate.Value = DateTime.Today
     End Sub
 
-    ' --- NEW: Add the click event handler for the "This Year" button ---
     Private Sub btnThisYear_Click(sender As Object, e As EventArgs) Handles btnThisYear.Click
-        ' Set the start date to January 1st of the current year
         dtpStartDate.Value = New DateTime(DateTime.Today.Year, 1, 1)
-        ' Set the end date to today
         dtpEndDate.Value = DateTime.Today
     End Sub
 
     Private Sub btnGenerate_Click(sender As Object, e As EventArgs) Handles btnGenerate.Click
-        ' Create a new, empty instance of our report DataSet
         Dim ds As New dsReports()
 
         Try
             OpenConnection()
 
-            ' --- STEP 1: Get the Master Sales records for the selected date range ---
             Dim salesMasterQuery As String = "SELECT * FROM tblSalesMaster WHERE SaleDate BETWEEN @StartDate AND @EndDate"
             Dim masterAdapter As New SqlDataAdapter(salesMasterQuery, conn)
             masterAdapter.SelectCommand.Parameters.AddWithValue("@StartDate", dtpStartDate.Value.Date)
             masterAdapter.SelectCommand.Parameters.AddWithValue("@EndDate", dtpEndDate.Value.Date.AddDays(1))
-
-            ' Fill ONLY the tblSalesMaster table in our DataSet
             masterAdapter.Fill(ds, "tblSalesMaster")
-
-            ' --- STEP 2: Now that we have the master sales, get ALL related data ---
-            ' It's easier and efficient enough to load all details, products, and users,
-            ' as Crystal Reports will filter them based on the relationships.
 
             Dim salesDetailAdapter As New SqlDataAdapter("SELECT * FROM tblSalesDetail", conn)
             salesDetailAdapter.Fill(ds, "tblSalesDetail")
@@ -62,7 +51,6 @@ Public Class ucReports
             CloseConnection()
         End Try
 
-        ' --- Generate and Show Report ---
         If ds.tblSalesMaster.Rows.Count = 0 Then
             MessageBox.Show("No sales data found for the selected period.", "No Data", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Return
@@ -71,11 +59,40 @@ Public Class ucReports
         Dim rpt As New rptSales()
         Dim frm As New frmReportViewer()
 
-        ' --- THIS IS THE KEY ---
-        ' Give Crystal Reports the ENTIRE DataSet. It knows how to use the
-        ' relationships we defined in the .xsd file to link the tables together.
         rpt.SetDataSource(ds)
+        frm.Report = rpt
+        frm.ShowDialog()
+    End Sub
 
+    Private Sub btnLowStockReport_Click(sender As Object, e As EventArgs) Handles btnLowStockReport.Click
+        Dim ds As New dsReports()
+
+        Try
+            OpenConnection()
+
+            Dim lowStockQuery As String = "SELECT p.ProductName, c.CategoryName, p.StockQuantity, p.Price " &
+                                          "FROM tblProducts p LEFT JOIN tblCategories c ON p.CategoryID = c.CategoryID " &
+                                          "WHERE p.StockQuantity <= 10 ORDER BY p.StockQuantity ASC"
+            Dim adapter As New SqlDataAdapter(lowStockQuery, conn)
+
+            adapter.Fill(ds, "tblLowStock")
+
+        Catch ex As Exception
+            MessageBox.Show("Error fetching low stock data: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
+        Finally
+            CloseConnection()
+        End Try
+
+        If ds.tblLowStock.Rows.Count = 0 Then
+            MessageBox.Show("No items with low stock were found.", "No Data", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Return
+        End If
+
+        Dim rpt As New rptLowStock()
+        Dim frm As New frmReportViewer()
+
+        rpt.SetDataSource(ds)
         frm.Report = rpt
         frm.ShowDialog()
     End Sub

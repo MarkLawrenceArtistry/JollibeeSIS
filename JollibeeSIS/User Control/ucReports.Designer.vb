@@ -33,6 +33,7 @@ Partial Class ucReports
         Me.lblStart = New System.Windows.Forms.Label()
         Me.Guna2Panel1 = New Guna.UI2.WinForms.Guna2Panel()
         Me.btnThisYear = New Guna.UI2.WinForms.Guna2Button()
+        Me.btnLowStockReport = New Guna.UI2.WinForms.Guna2Button()
         Me.Guna2Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -96,12 +97,12 @@ Partial Class ucReports
         Me.btnGenerate.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.btnGenerate.ForeColor = System.Drawing.Color.White
         Me.btnGenerate.HoverState.Parent = Me.btnGenerate
-        Me.btnGenerate.Location = New System.Drawing.Point(34, 637)
+        Me.btnGenerate.Location = New System.Drawing.Point(34, 325)
         Me.btnGenerate.Name = "btnGenerate"
         Me.btnGenerate.ShadowDecoration.Parent = Me.btnGenerate
         Me.btnGenerate.Size = New System.Drawing.Size(1006, 56)
         Me.btnGenerate.TabIndex = 3
-        Me.btnGenerate.Text = "Generate Report"
+        Me.btnGenerate.Text = "Generate Sales Report"
         '
         'Label5
         '
@@ -111,9 +112,9 @@ Partial Class ucReports
         Me.Label5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(54, Byte), Integer), CType(CType(54, Byte), Integer), CType(CType(54, Byte), Integer))
         Me.Label5.Location = New System.Drawing.Point(26, 14)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(241, 47)
+        Me.Label5.Size = New System.Drawing.Size(148, 47)
         Me.Label5.TabIndex = 4
-        Me.Label5.Text = "Sales Reports"
+        Me.Label5.Text = "Reports"
         '
         'dtpEndDate
         '
@@ -204,6 +205,22 @@ Partial Class ucReports
         Me.btnThisYear.TabIndex = 2
         Me.btnThisYear.Text = "This Year"
         '
+        'btnLowStockReport
+        '
+        Me.btnLowStockReport.BorderRadius = 30
+        Me.btnLowStockReport.CheckedState.Parent = Me.btnLowStockReport
+        Me.btnLowStockReport.CustomImages.Parent = Me.btnLowStockReport
+        Me.btnLowStockReport.FillColor = System.Drawing.Color.FromArgb(CType(CType(43, Byte), Integer), CType(CType(157, Byte), Integer), CType(CType(142, Byte), Integer))
+        Me.btnLowStockReport.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.btnLowStockReport.ForeColor = System.Drawing.Color.White
+        Me.btnLowStockReport.HoverState.Parent = Me.btnLowStockReport
+        Me.btnLowStockReport.Location = New System.Drawing.Point(34, 387)
+        Me.btnLowStockReport.Name = "btnLowStockReport"
+        Me.btnLowStockReport.ShadowDecoration.Parent = Me.btnLowStockReport
+        Me.btnLowStockReport.Size = New System.Drawing.Size(1006, 56)
+        Me.btnLowStockReport.TabIndex = 3
+        Me.btnLowStockReport.Text = "Generate Low Stock Report"
+        '
         'ucReports
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -211,6 +228,7 @@ Partial Class ucReports
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(232, Byte), Integer), CType(CType(235, Byte), Integer))
         Me.Controls.Add(Me.Guna2Panel1)
         Me.Controls.Add(Me.Label5)
+        Me.Controls.Add(Me.btnLowStockReport)
         Me.Controls.Add(Me.btnGenerate)
         Me.Controls.Add(Me.btnThisYear)
         Me.Controls.Add(Me.btnThisMonth)
@@ -235,5 +253,6 @@ Partial Class ucReports
     Friend WithEvents lblStart As System.Windows.Forms.Label
     Friend WithEvents Guna2Panel1 As Guna.UI2.WinForms.Guna2Panel
     Friend WithEvents btnThisYear As Guna.UI2.WinForms.Guna2Button
+    Friend WithEvents btnLowStockReport As Guna.UI2.WinForms.Guna2Button
 
 End Class
