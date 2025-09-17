@@ -22,7 +22,7 @@ Represents the strongly named DataTable class.
 	<summary>
 Represents the strongly named DataTable class.
 </summary>
-</member><member name="T:JollibeeSIS.dsReports.tblLowStockDataTable">
+</member><member name="T:JollibeeSIS.dsReports.tblLowStockIngredientsDataTable">
 	<summary>
 Represents the strongly named DataTable class.
 </summary>
@@ -42,7 +42,7 @@ Represents strongly named DataRow class.
 	<summary>
 Represents strongly named DataRow class.
 </summary>
-</member><member name="T:JollibeeSIS.dsReports.tblLowStockRow">
+</member><member name="T:JollibeeSIS.dsReports.tblLowStockIngredientsRow">
 	<summary>
 Represents strongly named DataRow class.
 </summary>
@@ -62,7 +62,7 @@ Row event argument class
 	<summary>
 Row event argument class
 </summary>
-</member><member name="T:JollibeeSIS.dsReports.tblLowStockRowChangeEvent">
+</member><member name="T:JollibeeSIS.dsReports.tblLowStockIngredientsRowChangeEvent">
 	<summary>
 Row event argument class
 </summary>

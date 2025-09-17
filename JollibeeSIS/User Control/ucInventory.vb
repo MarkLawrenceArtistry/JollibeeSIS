@@ -79,21 +79,25 @@ Public Class ucInventory
     Public Sub LoadProducts()
         Try
             OpenConnection()
-            ' --- FIX 2: Add p.CategoryID to the SELECT statement so the filter can use it ---
-            Dim query As String = "SELECT p.ProductID, p.Barcode, p.ProductName, p.CategoryID, c.CategoryName, p.Description, p.Price, p.StockQuantity, p.ImagePath " &
-                                  "FROM tblProducts p LEFT JOIN tblCategories c ON p.CategoryID = c.CategoryID"
+
+            Dim query As String = "WITH CalculableStock AS (" & _
+                                  "SELECT r.ProductID, MIN(FLOOR(i.StockQuantity / r.QuantityUsed)) AS CanMake " & _
+                                  "FROM tblRecipes r JOIN tblIngredients i ON r.IngredientID = i.IngredientID " & _
+                                  "WHERE r.QuantityUsed > 0 GROUP BY r.ProductID" & _
+                                  ") SELECT p.ProductID, p.Barcode, p.ProductName, c.CategoryName, p.Description, p.Price, p.ImagePath, " & _
+                                  "ISNULL(cs.CanMake, 0) AS [Stock (Can Make)] " & _
+                                  "FROM tblProducts p LEFT JOIN tblCategories c ON p.CategoryID = c.CategoryID " & _
+                                  "LEFT JOIN CalculableStock cs ON p.ProductID = cs.ProductID"
+
             Dim adapter As New SqlDataAdapter(query, conn)
 
             productsTable.Clear()
             adapter.Fill(productsTable)
             dgvProducts.DataSource = productsTable
 
-            ' Apply the global style (assuming StyleDataGridView is in modGlobal)
             StyleDataGridView(dgvProducts)
 
-            ' Hide unnecessary columns
             If dgvProducts.Columns.Contains("ProductID") Then dgvProducts.Columns("ProductID").Visible = False
-            If dgvProducts.Columns.Contains("CategoryID") Then dgvProducts.Columns("CategoryID").Visible = False ' Hide the ID column
             If dgvProducts.Columns.Contains("Description") Then dgvProducts.Columns("Description").Visible = False
             If dgvProducts.Columns.Contains("ImagePath") Then dgvProducts.Columns("ImagePath").Visible = False
 

@@ -24,6 +24,8 @@ Public Class ucReports
     End Sub
 
     Private Sub btnGenerate_Click(sender As Object, e As EventArgs) Handles btnGenerate.Click
+        ' This method generates the SALES report.
+        ' Since we updated the dsReports.xsd, this code will now work without changes.
         Dim ds As New dsReports()
 
         Try
@@ -38,6 +40,7 @@ Public Class ucReports
             Dim salesDetailAdapter As New SqlDataAdapter("SELECT * FROM tblSalesDetail", conn)
             salesDetailAdapter.Fill(ds, "tblSalesDetail")
 
+            ' This query no longer fails because dsReports.xsd has been fixed.
             Dim productsAdapter As New SqlDataAdapter("SELECT * FROM tblProducts", conn)
             productsAdapter.Fill(ds, "tblProducts")
 
@@ -65,31 +68,35 @@ Public Class ucReports
     End Sub
 
     Private Sub btnLowStockReport_Click(sender As Object, e As EventArgs) Handles btnLowStockReport.Click
+        ' --- THIS LOGIC IS NOW UPDATED FOR INGREDIENTS ---
         Dim ds As New dsReports()
 
         Try
             OpenConnection()
 
-            Dim lowStockQuery As String = "SELECT p.ProductName, c.CategoryName, p.StockQuantity, p.Price " &
-                                          "FROM tblProducts p LEFT JOIN tblCategories c ON p.CategoryID = c.CategoryID " &
-                                          "WHERE p.StockQuantity <= 10 ORDER BY p.StockQuantity ASC"
+            ' This query now gets low INGREDIENTS and formats them for the report.
+            Dim lowStockQuery As String = "SELECT IngredientName, " & _
+                                          "CAST(StockQuantity AS nvarchar) + ' ' + UnitOfMeasure AS RemainingStock " & _
+                                          "FROM tblIngredients WHERE StockQuantity <= 10 ORDER BY StockQuantity ASC"
             Dim adapter As New SqlDataAdapter(lowStockQuery, conn)
 
-            adapter.Fill(ds, "tblLowStock")
+            ' Fill the new tblLowStockIngredients table in our DataSet
+            adapter.Fill(ds, "tblLowStockIngredients")
 
         Catch ex As Exception
-            MessageBox.Show("Error fetching low stock data: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("Error fetching low stock ingredient data: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return
         Finally
             CloseConnection()
         End Try
 
-        If ds.tblLowStock.Rows.Count = 0 Then
-            MessageBox.Show("No items with low stock were found.", "No Data", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        If ds.tblLowStockIngredients.Rows.Count = 0 Then
+            MessageBox.Show("No ingredients with low stock were found.", "No Data", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Return
         End If
 
-        Dim rpt As New rptLowStock()
+        ' Use the NEW Crystal Report file
+        Dim rpt As New rptLowStockIngredients()
         Dim frm As New frmReportViewer()
 
         rpt.SetDataSource(ds)

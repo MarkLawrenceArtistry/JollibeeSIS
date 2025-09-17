@@ -28,8 +28,6 @@ Partial Class frmProductAddEdit
         Me.Label2 = New System.Windows.Forms.Label()
         Me.txtPrice = New Guna.UI2.WinForms.Guna2TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.lblNumStock = New System.Windows.Forms.Label()
-        Me.numStock = New Guna.UI2.WinForms.Guna2NumericUpDown()
         Me.picProductImage = New Guna.UI2.WinForms.Guna2PictureBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.btnBrowse = New Guna.UI2.WinForms.Guna2Button()
@@ -42,7 +40,7 @@ Partial Class frmProductAddEdit
         Me.picBarcode = New Guna.UI2.WinForms.Guna2PictureBox()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.cmbCategory = New Guna.UI2.WinForms.Guna2ComboBox()
-        CType(Me.numStock, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.btnManageRecipe = New Guna.UI2.WinForms.Guna2Button()
         CType(Me.picProductImage, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picBarcode, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -152,38 +150,6 @@ Partial Class frmProductAddEdit
         Me.Label3.Size = New System.Drawing.Size(90, 19)
         Me.Label3.TabIndex = 4
         Me.Label3.Text = "Product Price"
-        '
-        'lblNumStock
-        '
-        Me.lblNumStock.AutoSize = True
-        Me.lblNumStock.Font = New System.Drawing.Font("Segoe UI", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblNumStock.Location = New System.Drawing.Point(296, 156)
-        Me.lblNumStock.Name = "lblNumStock"
-        Me.lblNumStock.Size = New System.Drawing.Size(100, 19)
-        Me.lblNumStock.TabIndex = 2
-        Me.lblNumStock.Text = "Stock Quantity"
-        '
-        'numStock
-        '
-        Me.numStock.BackColor = System.Drawing.Color.Transparent
-        Me.numStock.BorderRadius = 5
-        Me.numStock.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.numStock.DisabledState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer), CType(CType(208, Byte), Integer))
-        Me.numStock.DisabledState.FillColor = System.Drawing.Color.FromArgb(CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer), CType(CType(226, Byte), Integer))
-        Me.numStock.DisabledState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer), CType(CType(138, Byte), Integer))
-        Me.numStock.DisabledState.Parent = Me.numStock
-        Me.numStock.DisabledState.UpDownButtonFillColor = System.Drawing.Color.FromArgb(CType(CType(177, Byte), Integer), CType(CType(177, Byte), Integer), CType(CType(177, Byte), Integer))
-        Me.numStock.DisabledState.UpDownButtonForeColor = System.Drawing.Color.FromArgb(CType(CType(203, Byte), Integer), CType(CType(203, Byte), Integer), CType(CType(203, Byte), Integer))
-        Me.numStock.FocusedState.BorderColor = System.Drawing.Color.FromArgb(CType(CType(94, Byte), Integer), CType(CType(148, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.numStock.FocusedState.Parent = Me.numStock
-        Me.numStock.Font = New System.Drawing.Font("Segoe UI", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.numStock.ForeColor = System.Drawing.Color.FromArgb(CType(CType(126, Byte), Integer), CType(CType(137, Byte), Integer), CType(CType(149, Byte), Integer))
-        Me.numStock.Location = New System.Drawing.Point(299, 195)
-        Me.numStock.Name = "numStock"
-        Me.numStock.ShadowDecoration.Parent = Me.numStock
-        Me.numStock.Size = New System.Drawing.Size(233, 44)
-        Me.numStock.TabIndex = 6
-        Me.numStock.UpDownButtonFillColor = System.Drawing.Color.FromArgb(CType(CType(219, Byte), Integer), CType(CType(1, Byte), Integer), CType(CType(28, Byte), Integer))
         '
         'picProductImage
         '
@@ -345,12 +311,29 @@ Partial Class frmProductAddEdit
         Me.cmbCategory.Size = New System.Drawing.Size(232, 36)
         Me.cmbCategory.TabIndex = 15
         '
+        'btnManageRecipe
+        '
+        Me.btnManageRecipe.BorderRadius = 5
+        Me.btnManageRecipe.CheckedState.Parent = Me.btnManageRecipe
+        Me.btnManageRecipe.CustomImages.Parent = Me.btnManageRecipe
+        Me.btnManageRecipe.FillColor = System.Drawing.Color.FromArgb(CType(CType(69, Byte), Integer), CType(CType(123, Byte), Integer), CType(CType(157, Byte), Integer))
+        Me.btnManageRecipe.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.btnManageRecipe.ForeColor = System.Drawing.Color.White
+        Me.btnManageRecipe.HoverState.Parent = Me.btnManageRecipe
+        Me.btnManageRecipe.Location = New System.Drawing.Point(931, 283)
+        Me.btnManageRecipe.Name = "btnManageRecipe"
+        Me.btnManageRecipe.ShadowDecoration.Parent = Me.btnManageRecipe
+        Me.btnManageRecipe.Size = New System.Drawing.Size(300, 45)
+        Me.btnManageRecipe.TabIndex = 16
+        Me.btnManageRecipe.Text = "Manage Recipe"
+        '
         'frmProductAddEdit
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(1259, 529)
+        Me.Controls.Add(Me.btnManageRecipe)
         Me.Controls.Add(Me.cmbCategory)
         Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.picBarcode)
@@ -360,20 +343,17 @@ Partial Class frmProductAddEdit
         Me.Controls.Add(Me.btnSave)
         Me.Controls.Add(Me.btnBrowse)
         Me.Controls.Add(Me.picProductImage)
-        Me.Controls.Add(Me.numStock)
         Me.Controls.Add(Me.txtPrice)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.txtDescription)
-        Me.Controls.Add(Me.lblNumStock)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.txtProductName)
         Me.Controls.Add(Me.Label1)
         Me.Name = "frmProductAddEdit"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Product Details"
-        CType(Me.numStock, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.picProductImage, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.picBarcode, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
@@ -386,8 +366,6 @@ Partial Class frmProductAddEdit
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents txtPrice As Guna.UI2.WinForms.Guna2TextBox
     Friend WithEvents Label3 As System.Windows.Forms.Label
-    Friend WithEvents lblNumStock As System.Windows.Forms.Label
-    Friend WithEvents numStock As Guna.UI2.WinForms.Guna2NumericUpDown
     Friend WithEvents picProductImage As Guna.UI2.WinForms.Guna2PictureBox
     Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents btnBrowse As Guna.UI2.WinForms.Guna2Button
@@ -400,4 +378,5 @@ Partial Class frmProductAddEdit
     Friend WithEvents picBarcode As Guna.UI2.WinForms.Guna2PictureBox
     Friend WithEvents Label6 As System.Windows.Forms.Label
     Friend WithEvents cmbCategory As Guna.UI2.WinForms.Guna2ComboBox
+    Friend WithEvents btnManageRecipe As Guna.UI2.WinForms.Guna2Button
 End Class

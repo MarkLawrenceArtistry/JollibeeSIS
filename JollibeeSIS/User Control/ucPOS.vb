@@ -97,16 +97,20 @@ Public Class ucPOS
         lblTotal.Text = total.ToString("C", PH_CULTURE) ' This will now show ₱ symbol
     End Sub
 
-    ' The rest of your code (LoadProducts, AddItemToCart, SaveSale, etc.)
-    ' remains perfectly fine and does not need to be changed.
-    ' I have included it below for a complete, copy-paste-ready solution.
-
     Private Sub LoadProducts()
-        flpProducts.Controls.Clear() ' Clear existing products before loading
+        flpProducts.Controls.Clear()
 
         Try
             OpenConnection()
-            Dim query As String = "SELECT ProductID, ProductName, Price, ImagePath FROM tblProducts WHERE StockQuantity > 0"
+
+            Dim query As String = "WITH CalculableStock AS (" & _
+                                  "SELECT r.ProductID, MIN(FLOOR(i.StockQuantity / r.QuantityUsed)) AS CanMake " & _
+                                  "FROM tblRecipes r JOIN tblIngredients i ON r.IngredientID = i.IngredientID " & _
+                                  "WHERE r.QuantityUsed > 0 GROUP BY r.ProductID" & _
+                                  ") SELECT p.ProductID, p.ProductName, p.Price, p.ImagePath " & _
+                                  "FROM tblProducts p JOIN CalculableStock cs ON p.ProductID = cs.ProductID " & _
+                                  "WHERE cs.CanMake > 0"
+
             Dim cmd As New SqlCommand(query, conn)
             Dim reader As SqlDataReader = cmd.ExecuteReader()
 
@@ -116,23 +120,17 @@ Public Class ucPOS
                 card.ProductName = reader("ProductName").ToString()
                 card.ProductPrice = CDec(reader("Price"))
 
-                ' Load image safely
                 Dim imagePath As String = reader("ImagePath").ToString()
                 If Not String.IsNullOrEmpty(imagePath) AndAlso File.Exists(imagePath) Then
                     card.ProductImage = Image.FromFile(imagePath)
-                Else
-                    ' Optional: Set a default placeholder image if none exists
-                    ' card.ProductImage = My.Resources.placeholder
                 End If
 
-                ' IMPORTANT: Handle the custom event from the card
                 AddHandler card.ProductClicked, AddressOf ProductCard_Clicked
-
                 flpProducts.Controls.Add(card)
             End While
             reader.Close()
         Catch ex As Exception
-            MessageBox.Show("Error loading products: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("Error loading products for POS: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             CloseConnection()
         End Try
@@ -175,22 +173,39 @@ Public Class ucPOS
             For Each row As DataGridViewRow In dgvCart.Rows
                 If Not row.IsNewRow Then
                     Dim productID As Integer = CInt(row.Cells("ID").Value)
-                    Dim qty As Integer = CInt(row.Cells("Qty").Value)
+                    Dim qtySold As Integer = CInt(row.Cells("Qty").Value)
                     Dim price As Decimal = CDec(row.Cells("Price").Value)
 
                     Dim detailQuery As String = "INSERT INTO tblSalesDetail (SaleID, ProductID, Quantity, PriceAtTimeOfSale) VALUES (@SaleID, @ProductID, @Qty, @Price)"
                     Dim detailCmd As New SqlCommand(detailQuery, conn, transaction)
                     detailCmd.Parameters.AddWithValue("@SaleID", newSaleID)
                     detailCmd.Parameters.AddWithValue("@ProductID", productID)
-                    detailCmd.Parameters.AddWithValue("@Qty", qty)
+                    detailCmd.Parameters.AddWithValue("@Qty", qtySold)
                     detailCmd.Parameters.AddWithValue("@Price", price)
                     detailCmd.ExecuteNonQuery()
 
-                    Dim stockQuery As String = "UPDATE tblProducts SET StockQuantity = StockQuantity - @Qty WHERE ProductID = @ProductID"
-                    Dim stockCmd As New SqlCommand(stockQuery, conn, transaction)
-                    stockCmd.Parameters.AddWithValue("@Qty", qty)
-                    stockCmd.Parameters.AddWithValue("@ProductID", productID)
-                    stockCmd.ExecuteNonQuery()
+                    ' --- NEW LOGIC TO DEDUCT INGREDIENTS ---
+                    Dim recipeQuery As String = "SELECT IngredientID, QuantityUsed FROM tblRecipes WHERE ProductID = @ProductID"
+                    Dim recipeCmd As New SqlCommand(recipeQuery, conn, transaction)
+                    recipeCmd.Parameters.AddWithValue("@ProductID", productID)
+                    Dim recipeReader As SqlDataReader = recipeCmd.ExecuteReader()
+
+                    Dim ingredientsToUpdate As New List(Of Tuple(Of Integer, Decimal))
+                    While recipeReader.Read()
+                        Dim ingredientID As Integer = CInt(recipeReader("IngredientID"))
+                        Dim quantityUsedPerItem As Decimal = CDec(recipeReader("QuantityUsed"))
+                        Dim totalQuantityToDeduct As Decimal = quantityUsedPerItem * qtySold
+                        ingredientsToUpdate.Add(Tuple.Create(ingredientID, totalQuantityToDeduct))
+                    End While
+                    recipeReader.Close() ' IMPORTANT: Close reader before running new commands
+
+                    For Each item In ingredientsToUpdate
+                        Dim stockQuery As String = "UPDATE tblIngredients SET StockQuantity = StockQuantity - @QtyDeducted WHERE IngredientID = @IngredientID"
+                        Dim stockCmd As New SqlCommand(stockQuery, conn, transaction)
+                        stockCmd.Parameters.AddWithValue("@QtyDeducted", item.Item2)
+                        stockCmd.Parameters.AddWithValue("@IngredientID", item.Item1)
+                        stockCmd.ExecuteNonQuery()
+                    Next
                 End If
             Next
 
@@ -200,7 +215,7 @@ Public Class ucPOS
             UpdateCartTotals()
         Catch ex As Exception
             If transaction IsNot Nothing Then transaction.Rollback()
-            MessageBox.Show("An error occurred during the sale. The transaction was rolled back. Error: " & ex.Message, "Transaction Failed", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("An error occurred during the sale. The transaction was rolled back. Check ingredient stock levels. Error: " & ex.Message, "Transaction Failed", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             CloseConnection()
         End Try
@@ -275,20 +290,35 @@ Public Class ucPOS
     Private Sub FindAndAddProductByBarcode(barcode As String)
         Try
             OpenConnection()
-            Dim query As String = "SELECT ProductID, ProductName, Price FROM tblProducts WHERE Barcode = @Barcode AND StockQuantity > 0"
+            ' --- FIX: Removed the reference to the deleted StockQuantity column ---
+            ' The new logic in LoadProducts already ensures only available items are considered.
+            Dim query As String = "SELECT ProductID, ProductName, Price FROM tblProducts WHERE Barcode = @Barcode"
             Dim cmd As New SqlCommand(query, conn)
             cmd.Parameters.AddWithValue("@Barcode", barcode)
             Dim reader As SqlDataReader = cmd.ExecuteReader()
+
+            ' We still need to check if we can make it, just in case stock changed since loading the screen.
             If reader.HasRows Then
                 reader.Read()
                 Dim id As Integer = CInt(reader("ProductID"))
                 Dim name As String = reader("ProductName").ToString()
                 Dim price As Decimal = CDec(reader("Price"))
-                reader.Close()
-                AddItemToCart(id, name, price)
+                reader.Close() ' Close first reader
+
+                ' Verify we can make at least one
+                Dim canMakeQuery As String = "SELECT MIN(FLOOR(i.StockQuantity / r.QuantityUsed)) FROM tblRecipes r JOIN tblIngredients i ON r.IngredientID = i.IngredientID WHERE r.ProductID = @ProductID"
+                Dim canMakeCmd As New SqlCommand(canMakeQuery, conn)
+                canMakeCmd.Parameters.AddWithValue("@ProductID", id)
+                Dim canMakeResult = canMakeCmd.ExecuteScalar()
+
+                If canMakeResult IsNot DBNull.Value AndAlso CInt(canMakeResult) > 0 Then
+                    AddItemToCart(id, name, price)
+                Else
+                    MessageBox.Show("Product with barcode '" & barcode & "' found, but it is out of stock (ingredients unavailable).", "Out of Stock", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                End If
             Else
                 reader.Close()
-                MessageBox.Show("Product with barcode '" & barcode & "' not found or is out of stock.", "Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show("Product with barcode '" & barcode & "' not found.", "Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             End If
         Catch ex As Exception
             MessageBox.Show("Error finding product by barcode: " & ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)

@@ -63,6 +63,7 @@ Partial Class frmQRScanner
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(455, 514)
         Me.Controls.Add(Me.btnCancelScan)
         Me.Controls.Add(Me.picCamera)

@@ -82,4 +82,10 @@
         Dim uc As New ucUsers()
         LoadUserControl(uc)
     End Sub
+
+    Private Sub btnIngredients_Click(sender As Object, e As EventArgs) Handles btnIngredients.Click
+        Dim uc As New ucIngredients()
+        LoadUserControl(uc)
+    End Sub
+
 End Class

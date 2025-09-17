@@ -71,10 +71,10 @@ Public Class ucDashboard
     Private Sub LoadLowStockItems()
         Try
             OpenConnection()
-            ' We define "Low Stock" as quantity 10 or less
-            Dim query As String = "SELECT ProductName AS [Product Name], StockQuantity AS [Remaining Stock] " &
-                                  "FROM tblProducts " &
-                                  "WHERE StockQuantity <= 10 " &
+            Dim query As String = "SELECT IngredientName AS [Ingredient Name], " & _
+                                  "CAST(StockQuantity AS nvarchar) + ' ' + UnitOfMeasure AS [Remaining Stock] " & _
+                                  "FROM tblIngredients " & _
+                                  "WHERE StockQuantity <= 10 " & _
                                   "ORDER BY StockQuantity ASC"
 
             Dim adapter As New SqlDataAdapter(query, conn)
@@ -82,7 +82,6 @@ Public Class ucDashboard
             adapter.Fill(dt)
             dgvLowStock.DataSource = dt
 
-            ' --- APPLY THE NEW STYLE ---
             StyleDataGridView(dgvLowStock)
 
         Catch ex As Exception

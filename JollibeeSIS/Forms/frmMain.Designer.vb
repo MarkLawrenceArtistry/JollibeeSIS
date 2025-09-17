@@ -24,22 +24,23 @@ Partial Class frmMain
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
         Me.pnlSidebar = New Guna.UI2.WinForms.Guna2Panel()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.Guna2PictureBox1 = New Guna.UI2.WinForms.Guna2PictureBox()
         Me.btnLogout = New Guna.UI2.WinForms.Guna2Button()
         Me.btnUsers = New Guna.UI2.WinForms.Guna2Button()
         Me.btnReports = New Guna.UI2.WinForms.Guna2Button()
+        Me.btnIngredients = New Guna.UI2.WinForms.Guna2Button()
         Me.btnInventory = New Guna.UI2.WinForms.Guna2Button()
         Me.btnPOS = New Guna.UI2.WinForms.Guna2Button()
         Me.btnDashboard = New Guna.UI2.WinForms.Guna2Button()
         Me.pnlContent = New Guna.UI2.WinForms.Guna2Panel()
         Me.pnlHeader = New Guna.UI2.WinForms.Guna2Panel()
         Me.lblWelcome = New System.Windows.Forms.Label()
-        Me.Guna2PictureBox1 = New Guna.UI2.WinForms.Guna2PictureBox()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label3 = New System.Windows.Forms.Label()
         Me.pnlSidebar.SuspendLayout()
-        Me.pnlHeader.SuspendLayout()
         CType(Me.Guna2PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.pnlHeader.SuspendLayout()
         Me.SuspendLayout()
         '
         'pnlSidebar
@@ -51,6 +52,7 @@ Partial Class frmMain
         Me.pnlSidebar.Controls.Add(Me.btnLogout)
         Me.pnlSidebar.Controls.Add(Me.btnUsers)
         Me.pnlSidebar.Controls.Add(Me.btnReports)
+        Me.pnlSidebar.Controls.Add(Me.btnIngredients)
         Me.pnlSidebar.Controls.Add(Me.btnInventory)
         Me.pnlSidebar.Controls.Add(Me.btnPOS)
         Me.pnlSidebar.Controls.Add(Me.btnDashboard)
@@ -60,6 +62,51 @@ Partial Class frmMain
         Me.pnlSidebar.ShadowDecoration.Parent = Me.pnlSidebar
         Me.pnlSidebar.Size = New System.Drawing.Size(213, 804)
         Me.pnlSidebar.TabIndex = 0
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.BackColor = System.Drawing.Color.Transparent
+        Me.Label3.Font = New System.Drawing.Font("Segoe UI", 7.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Location = New System.Drawing.Point(13, 455)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(78, 15)
+        Me.Label3.TabIndex = 3
+        Me.Label3.Text = "Management"
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.BackColor = System.Drawing.Color.Transparent
+        Me.Label2.Font = New System.Drawing.Font("Segoe UI", 7.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Location = New System.Drawing.Point(13, 270)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(38, 15)
+        Me.Label2.TabIndex = 3
+        Me.Label2.Text = "Menu"
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.BackColor = System.Drawing.Color.Transparent
+        Me.Label1.Font = New System.Drawing.Font("Segoe UI", 7.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(13, 135)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(56, 15)
+        Me.Label1.TabIndex = 3
+        Me.Label1.Text = "Overview"
+        '
+        'Guna2PictureBox1
+        '
+        Me.Guna2PictureBox1.BackColor = System.Drawing.Color.Transparent
+        Me.Guna2PictureBox1.Image = CType(resources.GetObject("Guna2PictureBox1.Image"), System.Drawing.Image)
+        Me.Guna2PictureBox1.Location = New System.Drawing.Point(3, 28)
+        Me.Guna2PictureBox1.Name = "Guna2PictureBox1"
+        Me.Guna2PictureBox1.ShadowDecoration.Parent = Me.Guna2PictureBox1
+        Me.Guna2PictureBox1.Size = New System.Drawing.Size(208, 75)
+        Me.Guna2PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Guna2PictureBox1.TabIndex = 2
+        Me.Guna2PictureBox1.TabStop = False
         '
         'btnLogout
         '
@@ -95,7 +142,7 @@ Partial Class frmMain
         Me.btnUsers.HoverState.Parent = Me.btnUsers
         Me.btnUsers.Image = CType(resources.GetObject("btnUsers.Image"), System.Drawing.Image)
         Me.btnUsers.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left
-        Me.btnUsers.Location = New System.Drawing.Point(13, 426)
+        Me.btnUsers.Location = New System.Drawing.Point(13, 475)
         Me.btnUsers.Name = "btnUsers"
         Me.btnUsers.PressedColor = System.Drawing.Color.FromArgb(CType(CType(251, Byte), Integer), CType(CType(228, Byte), Integer), CType(CType(233, Byte), Integer))
         Me.btnUsers.ShadowDecoration.Parent = Me.btnUsers
@@ -126,6 +173,28 @@ Partial Class frmMain
         Me.btnReports.Text = "Reports"
         Me.btnReports.TextAlign = System.Windows.Forms.HorizontalAlignment.Left
         '
+        'btnIngredients
+        '
+        Me.btnIngredients.BorderColor = System.Drawing.Color.FromArgb(CType(CType(153, Byte), Integer), CType(CType(153, Byte), Integer), CType(CType(153, Byte), Integer))
+        Me.btnIngredients.BorderRadius = 5
+        Me.btnIngredients.BorderThickness = 1
+        Me.btnIngredients.CheckedState.Parent = Me.btnIngredients
+        Me.btnIngredients.CustomImages.Parent = Me.btnIngredients
+        Me.btnIngredients.FillColor = System.Drawing.Color.White
+        Me.btnIngredients.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.btnIngredients.ForeColor = System.Drawing.Color.FromArgb(CType(CType(97, Byte), Integer), CType(CType(97, Byte), Integer), CType(CType(97, Byte), Integer))
+        Me.btnIngredients.HoverState.Parent = Me.btnIngredients
+        Me.btnIngredients.Image = CType(resources.GetObject("btnIngredients.Image"), System.Drawing.Image)
+        Me.btnIngredients.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left
+        Me.btnIngredients.Location = New System.Drawing.Point(13, 392)
+        Me.btnIngredients.Name = "btnIngredients"
+        Me.btnIngredients.PressedColor = System.Drawing.Color.FromArgb(CType(CType(251, Byte), Integer), CType(CType(228, Byte), Integer), CType(CType(233, Byte), Integer))
+        Me.btnIngredients.ShadowDecoration.Parent = Me.btnIngredients
+        Me.btnIngredients.Size = New System.Drawing.Size(188, 45)
+        Me.btnIngredients.TabIndex = 1
+        Me.btnIngredients.Text = "Ingredients"
+        Me.btnIngredients.TextAlign = System.Windows.Forms.HorizontalAlignment.Left
+        '
         'btnInventory
         '
         Me.btnInventory.BorderColor = System.Drawing.Color.FromArgb(CType(CType(153, Byte), Integer), CType(CType(153, Byte), Integer), CType(CType(153, Byte), Integer))
@@ -145,7 +214,7 @@ Partial Class frmMain
         Me.btnInventory.ShadowDecoration.Parent = Me.btnInventory
         Me.btnInventory.Size = New System.Drawing.Size(188, 45)
         Me.btnInventory.TabIndex = 1
-        Me.btnInventory.Text = "Inventory"
+        Me.btnInventory.Text = "Products"
         Me.btnInventory.TextAlign = System.Windows.Forms.HorizontalAlignment.Left
         '
         'btnPOS
@@ -222,51 +291,6 @@ Partial Class frmMain
         Me.lblWelcome.TabIndex = 0
         Me.lblWelcome.Text = "Welcome, [User's Full Name]"
         '
-        'Guna2PictureBox1
-        '
-        Me.Guna2PictureBox1.BackColor = System.Drawing.Color.Transparent
-        Me.Guna2PictureBox1.Image = CType(resources.GetObject("Guna2PictureBox1.Image"), System.Drawing.Image)
-        Me.Guna2PictureBox1.Location = New System.Drawing.Point(3, 28)
-        Me.Guna2PictureBox1.Name = "Guna2PictureBox1"
-        Me.Guna2PictureBox1.ShadowDecoration.Parent = Me.Guna2PictureBox1
-        Me.Guna2PictureBox1.Size = New System.Drawing.Size(208, 75)
-        Me.Guna2PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.Guna2PictureBox1.TabIndex = 2
-        Me.Guna2PictureBox1.TabStop = False
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.BackColor = System.Drawing.Color.Transparent
-        Me.Label1.Font = New System.Drawing.Font("Segoe UI", 7.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(13, 135)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(61, 17)
-        Me.Label1.TabIndex = 3
-        Me.Label1.Text = "Overview"
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.BackColor = System.Drawing.Color.Transparent
-        Me.Label2.Font = New System.Drawing.Font("Segoe UI", 7.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(13, 270)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(41, 17)
-        Me.Label2.TabIndex = 3
-        Me.Label2.Text = "Menu"
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.BackColor = System.Drawing.Color.Transparent
-        Me.Label3.Font = New System.Drawing.Font("Segoe UI", 7.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(13, 406)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(85, 17)
-        Me.Label3.TabIndex = 3
-        Me.Label3.Text = "Management"
-        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -282,9 +306,9 @@ Partial Class frmMain
         Me.Text = "frmMain"
         Me.pnlSidebar.ResumeLayout(False)
         Me.pnlSidebar.PerformLayout()
+        CType(Me.Guna2PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnlHeader.ResumeLayout(False)
         Me.pnlHeader.PerformLayout()
-        CType(Me.Guna2PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -302,4 +326,5 @@ Partial Class frmMain
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents btnIngredients As Guna.UI2.WinForms.Guna2Button
 End Class

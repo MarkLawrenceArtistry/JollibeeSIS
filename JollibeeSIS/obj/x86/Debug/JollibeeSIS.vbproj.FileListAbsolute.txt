@@ -28,3 +28,6 @@ C:\Users\Admin\Documents\VB10 Programs\JollibeeSIS\JollibeeSIS\bin\Debug\AForge.
 C:\Users\Admin\Documents\VB10 Programs\JollibeeSIS\JollibeeSIS\bin\Debug\AForge.Video.dll
 C:\Users\Admin\Documents\VB10 Programs\JollibeeSIS\JollibeeSIS\obj\x86\Debug\JollibeeSIS.vbprojResolveAssemblyReference.cache
 C:\Users\Admin\Documents\VB10 Programs\JollibeeSIS\JollibeeSIS\obj\x86\Debug\JollibeeSIS.frmQRScanner.resources
+C:\Users\Admin\Documents\VB10 Programs\JollibeeSIS\JollibeeSIS\obj\x86\Debug\JollibeeSIS.frmIngredientAddEdit.resources
+C:\Users\Admin\Documents\VB10 Programs\JollibeeSIS\JollibeeSIS\obj\x86\Debug\JollibeeSIS.frmRecipeManagement.resources
+C:\Users\Admin\Documents\VB10 Programs\JollibeeSIS\JollibeeSIS\obj\x86\Debug\JollibeeSIS.ucIngredients.resources
